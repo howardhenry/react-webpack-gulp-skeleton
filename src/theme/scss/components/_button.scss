@@ -1,0 +1,75 @@
+.btn {
+	padding: $sca-padding-xlarge-vertical $sca-padding-xlarge-horizontal;
+	border: none;
+	border-bottom: 5px solid $sca-brand-primary;
+	border-radius: 0;
+	display: inline-block;
+	transition: all 0.15s ease-in-out;
+	font-weight: 400;
+	text-decoration: none !important;
+
+	&:focus {
+		outline: none !important;
+	}
+
+	&-dark {
+		background-color: $sca-brand-dark;
+		color: $sca-white;
+
+		&:hover {
+			color: $sca-white;
+			background-color: darken($sca-brand-dark, 10);
+		}
+
+		&:active,
+		&:focus {
+			color: $sca-white;
+			background-color: darken($sca-brand-dark, 20);
+		}
+
+		&:visited {
+			color: $sca-white;
+		}
+	}
+
+	&-default {
+		background-color: darken($sca-brand-light, 10);
+		color: $sca-brand-dark;
+
+		&:hover {
+			color: $sca-brand-dark;
+			background-color: darken($sca-brand-light, 20);
+		}
+
+		&:active,
+		&:focus {
+			color: $sca-brand-dark;
+			background-color: darken($sca-brand-light, 30);
+		}
+
+		&:visited {
+			color: $sca-brand-dark;
+		}
+	}
+
+	&-primary {
+		background-color: $sca-brand-primary;
+		border-color: $sca-brand-dark;
+		color: $sca-white;
+
+		&:hover {
+			color: $sca-white;
+			background-color: darken($sca-brand-primary, 5);
+		}
+
+		&:active,
+		&:focus {
+			color: $sca-white;
+			background-color: darken($sca-brand-primary, 10);
+		}
+
+		&:visited {
+			color: $sca-white;
+		}
+	}
+}

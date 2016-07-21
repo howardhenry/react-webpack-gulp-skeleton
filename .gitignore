@@ -1,0 +1,13 @@
+# Logs
+*.log
+
+# Dependency directory
+node_modules
+
+# Optional npm cache directory
+.npm
+
+# IDE and OS
+*.iml
+.idea/
+.DS_Store*

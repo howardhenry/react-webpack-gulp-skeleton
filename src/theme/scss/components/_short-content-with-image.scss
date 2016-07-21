@@ -1,0 +1,26 @@
+.component-short-content-with-image {
+	.image {
+		@media (max-width: $screen-sm) { text-align: center; }
+
+		img {
+			width: 50%;
+		}
+	}
+
+	.title {
+		font-size: 21px;
+	}
+
+	.sub-title {
+		margin-bottom: 1em;
+		font-weight: 400;
+	}
+
+	.body {
+		margin-bottom: 1em;
+	}
+
+	.read-more {
+		margin-bottom: 1em;
+	}
+}

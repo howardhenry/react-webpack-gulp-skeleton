@@ -1,0 +1,13 @@
+a {
+	&.icon-link {
+		&:active,
+		&:hover,
+		&:focus {
+			text-decoration: none;
+		}
+
+		@include context('.component-row', '.component-row.row-light') { color: $sca-brand-dark; }
+		@include context('.component-row', '.component-row.row-dark') { color: $sca-brand-light; }
+		@include context('.component-row', '.component-row.row-green') { color: $sca-brand-light; }
+	}
+}

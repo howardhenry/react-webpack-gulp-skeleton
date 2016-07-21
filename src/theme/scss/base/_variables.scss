@@ -1,0 +1,89 @@
+/*********************
+ CUSTOM VARIABLES
+ *********************/
+
+// Paths
+$sca-font-path:                         "../fonts/";
+$sca-img-path:                          "../img/";
+
+// Colors
+$sca-light:                             #F1EEE7;
+$sca-white:                             #FFFFFF;
+$sca-black:                             #000000;
+$sca-gray-darker:                       #222222;
+$sca-gray-dark:                         #333333;
+$sca-gray:                              #555555;
+$sca-gray-light:                        #7a7a8f;
+$sca-gray-lighter:                      #EEEEEE;
+$sca-gray-lightest:                     #F8F8F8;
+
+$sca-brand-dark:                        #1F242C;
+$sca-brand-light:                       #FFFFFF;
+$sca-brand-primary:                     #00C5B7;
+$sca-brand-danger:                      #FB436B;
+
+// Layout
+$sca-padding-xlarge-vertical:           12px;
+$sca-padding-xlarge-horizontal:         24px;
+$sca-padding-xxlarge-vertical:          40px;
+$sca-padding-xxlarge-horizontal:        40px;
+
+$sca-nav-menu-height:                   58px;
+
+
+/*********************
+ BOOTSTRAP OVERRIDES
+ *********************/
+
+// Base
+$font-family-base:                      "Roboto", Arial, Helvetica, sans-serif;
+
+// Typography
+$font-size-base:                        16px;
+
+$font-size-h1:                          floor(($font-size-base * 2.375)) !default;       // ~36px
+$font-size-h2:                          floor(($font-size-base * 2.375)) !default;          // ~36px
+$font-size-h3:                          ceil(($font-size-base * 1.75)) !default;        // ~28px
+$font-size-h4:                          ceil(($font-size-base * 1.25)) !default;        // ~20px
+$font-size-h5:                          $font-size-base !default;
+$font-size-h6:                          ceil(($font-size-base * 0.875)) !default;       // ~12px
+
+$line-height-base:                      1.75;
+
+$headings-font-family:                  "ff-enzo-web", "Roboto", Arial, Helvetica, san-serif;
+
+// Colors
+$brand-primary:                        $sca-brand-primary;
+$brand-danger:                         $sca-brand-danger;
+
+
+// Popovers
+$popover-bg:                          #ffffff !default;
+$popover-max-width:                   400px !default;
+$popover-border-color:                rgba(0,0,0,.2) !default;
+$popover-fallback-border-color:       #ccc !default;
+
+$popover-title-bg:                    $sca-brand-primary !default;
+
+$popover-arrow-width:                 10px !default;
+$popover-arrow-color:                 $popover-bg !default;
+$popover-arrow-outer-width:           ($popover-arrow-width + 1) !default;
+$popover-arrow-outer-color:           fade_in($popover-border-color, 0.05) !default;
+$popover-arrow-outer-fallback-color:  darken($popover-fallback-border-color, 20%) !default;
+
+$blockquote-font-size:                floor(($font-size-base * 2)) !default;
+
+$table-cell-padding:            5px !default;
+//** Padding for cells in `.table-condensed`.
+$table-condensed-cell-padding:  5px !default;
+
+//** Default background color used for all tables.
+$table-bg:                      transparent !default;
+//** Background color used for `.table-striped`.
+$table-bg-accent:               darken($sca-white, 10%) !default;
+//** Background color used for `.table-hover`.
+$table-bg-hover:                $sca-gray-dark !default;
+$table-bg-active:               $table-bg-hover !default;
+
+//** Border color for table and cell borders.
+$table-border-color:            #323945 !default;

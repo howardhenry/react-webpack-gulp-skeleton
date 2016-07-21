@@ -1,0 +1,25 @@
+.banner-container {
+	background-color: $sca-brand-dark;
+	color: $sca-brand-light;
+
+	.banner {
+		text-align: center;
+		padding: $padding-large-vertical $padding-large-horizontal;
+
+		p {
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+}
+
+.device-desktop {
+	.banner-container {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 1000;
+	}
+}
+

@@ -1,0 +1,28 @@
+// Custom gutter width for mobile
+@media (max-width: $screen-xs) {
+	.container {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	.row {
+		margin: 0 -10px;
+	}
+}
+
+
+// Custom padding between columns
+@for $i from 1 through 12 {
+	.col-xs-#{$i}, .col-sm-#{$i}, .col-md-#{$i}, .col-lg-#{$i} {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
+	@media (max-width: $screen-xs) {
+		.col-xs-#{$i}, .col-sm-#{$i}, .col-md-#{$i}, .col-lg-#{$i} {
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+	}
+}
+
