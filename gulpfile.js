@@ -7,73 +7,49 @@ var fs = require('fs');
 var csslint = require('gulp-csslint');
 var webpack = require('webpack');
 var gutil = require('gulp-util');
+var _ = require('lodash');
 var webpackDevServer = require('webpack-dev-server');
+var webpackConfig = require('./webpack.config.js');
 
-var webpackConfig = require('./webpack.config');
-
-// SERVE-DEV
-gulp.task('serve-dev', ['webpack', 'sass'], function () {
-    // gulp.watch(['./src/**/*.js', '!./src/scripts/**/*.js'], ['webpack']);
-    gulp.watch('./src/theme/scss/**/*.scss', ['sass']);
-});
-
-
-// WEBPACK
-gulp.task('webpack', function () {
-    var config = Object.create(webpackConfig);
-
-    new webpackDevServer(webpack(config))
-        .listen(8080, 'localhost', function(err) {
-            if (err) throw new gutil.PluginError('webpack-dev-server', err.toString());
-            
-            gutil.log('[webpack-dev-server]', 'http://localhost:8080/src');
-        });
-});
-
-
-// SASS
-gulp.task('sass', function () {
-    return gulp.src('./src/theme/scss/**/*.scss')
-        .pipe(sourcemaps.init())
+/**
+ * SASS-DEV
+ * compile sass in 'src' directory and save in place to .css
+ */
+gulp.task('sass-dev', function () {
+    return gulp.src(['./src/**/*.scss'])
         .pipe(sass.sync({ outputStyle: 'compressed' }).on('error', sass.logError))
         .pipe(postcss([autoprefixer({ browsers: ['last 4 versions'] })]))
-        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('./src/theme/css'));
 });
 
 
-// CSS LINT
-gulp.task('csslint', function () {
-    var ignoreBootstrap = filter(['**/*.css', '!**/bootstrap.css'], { restore: true });
-    var output = '';
+/**
+ * WEBPACK-DEV
+ * Bundle and serve app with webpack or port 8050
+ */
+gulp.task('webpack-dev-server', function() {
 
-    return gulp.src('./src/public/theme/scss/**/*.scss')
-        .pipe(sass.sync().on('error', sass.logError))
-        .pipe(postcss([autoprefixer({ browsers: ['last 4 versions'] })]))
-        .pipe(ignoreBootstrap)
-        .pipe(csslint())
-        .pipe(csslint.reporter('junit-xml', {
-            logger: function (str) {
-                var reportsDir = 'reports';
-                if (!fs.existsSync(reportsDir)) {
-                    shell.mkdir('-p', reportsDir);
-                }
+    var port = 8050;
+    var config = Object.create(webpackConfig);
+    config.devtool = 'eval';
+    config.debug = true;
 
-                output += str;
-                fs.writeFile(reportsDir + '/csslint-junit.xml', output);
-            }
-        }));
-});
+    _.forEach(config.entry, function(entry, key) {
+        config.entry[key].unshift('webpack/hot/only-dev-server');
+        config.entry[key].unshift('webpack-dev-server/client?http://localhost:' + port + '/');
+    });
 
+    // Start a webpack-dev-server
+    new webpackDevServer(webpack(config), {
+        contentBase: __dirname + '/src/',
+        publicPath: config.output.publicPath,
+        stats: {
+            colors: true
+        }
+    }).listen(port, 'localhost', function(err) {
+        if(err) throw new gutil.PluginError('webpack-dev-server', err);
+        gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
+    });
 
-gulp.task('csslint-cli', function () {
-    var ignoreBootstrap = filter(['**/*.css', '!**/bootstrap.css'], { restore: true });
-
-    return gulp.src('./src/public/theme/scss/**/*.scss')
-        .pipe(sass.sync().on('error', sass.logError))
-        .pipe(postcss([autoprefixer({ browsers: ['last 4 versions'] })]))
-        .pipe(ignoreBootstrap)
-        .pipe(csslint())
-        .pipe(csslint.reporter())
-        .pipe(csslint.failReporter());
+    gulp.watch(['./src/**/*.scss'], ['sass-css']);
 });
