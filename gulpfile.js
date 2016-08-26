@@ -5,7 +5,8 @@ var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var eslint = require('gulp-eslint');
 var csslint = require('gulp-csslint');
-var gutil = require('gulp-util');
+var gulpUtil = require('gulp-util');
+var gulpCopy = require('gulp-copy');
 var autoprefixer = require('autoprefixer');
 var shell = require('shelljs');
 var webpack = require('webpack');
@@ -49,8 +50,8 @@ gulp.task('webpack-dev-server', function() {
             colors: true
         }
     }).listen(port, 'localhost', function(err) {
-        if(err) throw new gutil.PluginError('webpack-dev-server', err);
-        gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
+        if(err) throw new gulpUtil.PluginError('webpack-dev-server', err);
+        gulpUtil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
     });
 
     gulp.watch(['./src/**/*.scss'], ['sass-css']);
@@ -77,4 +78,12 @@ gulp.task('eslint-cli', function () {
         .pipe(eslint())
         .pipe(eslint.format('compact'))
         .pipe(eslint.failAfterError());
+});
+
+/**
+ * ADD-GIT-HOOKS
+ */
+gulp.task('add-git-hooks', function () {
+    return gulp.src('./hooks/*')
+        .pipe(gulpCopy('./.git/'));
 });
