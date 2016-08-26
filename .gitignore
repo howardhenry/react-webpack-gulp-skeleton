@@ -4,6 +4,9 @@
 # Dependency directory
 node_modules
 
+# Build and reports directory
+reports/
+
 # Optional npm cache directory
 .npm
 

@@ -1,12 +1,14 @@
+var fs = require('fs');
 var gulp = require('gulp');
 var postcss = require('gulp-postcss');
 var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
-var autoprefixer = require('autoprefixer');
-var fs = require('fs');
+var eslint = require('gulp-eslint');
 var csslint = require('gulp-csslint');
-var webpack = require('webpack');
 var gutil = require('gulp-util');
+var autoprefixer = require('autoprefixer');
+var shell = require('shelljs');
+var webpack = require('webpack');
 var _ = require('lodash');
 var webpackDevServer = require('webpack-dev-server');
 var webpackConfig = require('./webpack.config.js');
@@ -52,4 +54,27 @@ gulp.task('webpack-dev-server', function() {
     });
 
     gulp.watch(['./src/**/*.scss'], ['sass-css']);
+});
+
+
+/**
+ * ESLINT
+ */
+gulp.task('eslint', function () {
+    var reportsDir = 'reports';
+    if (!fs.existsSync(reportsDir)) {
+        shell.mkdir('-p', reportsDir);
+    }
+
+    return gulp.src(['./src/**/*.js'])
+        .pipe(eslint())
+        .pipe(eslint.format('checkstyle', fs.createWriteStream(__dirname + '/reports/eslint-checkstyle.xml')))
+        .pipe(eslint.failAfterError());
+});
+
+gulp.task('eslint-cli', function () {
+    return gulp.src(['./src/**/*.js'])
+        .pipe(eslint())
+        .pipe(eslint.format('compact'))
+        .pipe(eslint.failAfterError());
 });

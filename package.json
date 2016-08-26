@@ -5,22 +5,26 @@
   "main": "index.js",
   "scripts": {
     "start": "gulp webpack-dev-server",
+    "code-quality": "gulp eslint",
+    "code-quality-cli": "gulp eslint-cli",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bootstrap-sass": "^3.3.6",
-    "lodash": "4.15.0"
+    "bootstrap-sass": "3.3.6",
+    "lodash": "4.15.0",
+    "shelljs": "^0.7.4"
   },
   "devDependencies": {
-    "autoprefixer": "^6.3.7",
+    "autoprefixer": "6.3.7",
     "gulp": "3.9.1",
-    "gulp-csslint": "^0.3.1",
-    "gulp-postcss": "^6.1.1",
-    "gulp-sass": "^2.3.2",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-util": "^3.0.7",
+    "gulp-csslint": "0.3.1",
+    "gulp-eslint": "3.0.1",
+    "gulp-postcss": "6.1.1",
+    "gulp-sass": "2.3.2",
+    "gulp-sourcemaps": "1.6.0",
+    "gulp-util": "3.0.7",
     "webpack": "1.13.1",
     "webpack-dev-server": "1.14.1"
   }
