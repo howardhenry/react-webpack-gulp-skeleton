@@ -2,7 +2,6 @@ var fs = require('fs');
 var path = require('path');
 var gulp = require('gulp');
 var postcss = require('gulp-postcss');
-var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var eslint = require('gulp-eslint');
 var csslint = require('gulp-csslint');
