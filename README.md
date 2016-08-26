@@ -6,6 +6,9 @@ Skeleton project using Webpack Dev Server and Gulp
 
 Essential scripts via NPM:
 
+* Run css quality (csslint):
+    - *junit reporter*: `npm run css-quality`
+    - *command line interface*: `npm run css-quality-cli`
 * Run code quality (eslint):
     - *checkstyle reporter*:  `npm run code-quality`
     - *command line interface*:  `npm run code-quality-cli`
