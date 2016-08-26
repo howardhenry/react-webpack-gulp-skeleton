@@ -35,4 +35,4 @@ Before each commit, only code quality (eslint), and css quality (csslint) checks
 #### Pre-push
 Before each push, only tests will be run. The following command will be automatically run:
 
-    -   npm run test-cli
+    -   npm run test
