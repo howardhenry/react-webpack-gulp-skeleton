@@ -6,6 +6,9 @@ Skeleton project using Webpack Dev Server and Gulp
 
 Essential scripts via NPM:
 
+* Run tests (mocha):
+    - *command line interface*: `npm test`
+    - *command line interface w/ watch*: `npm run tdd`
 * Run css quality (csslint):
     - *junit reporter*: `npm run css-quality`
     - *command line interface*: `npm run css-quality-cli`

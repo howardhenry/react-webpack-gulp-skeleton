@@ -6,6 +6,8 @@ var sass = require('gulp-sass');
 var eslint = require('gulp-eslint');
 var csslint = require('gulp-csslint');
 var filter = require('gulp-filter');
+var mocha = require('gulp-mocha');
+var batch = require('gulp-batch');
 var gulpUtil = require('gulp-util');
 var gulpCopy = require('gulp-copy');
 var autoprefixer = require('autoprefixer');
@@ -59,10 +61,34 @@ gulp.task('webpack-dev-server', function() {
 });
 
 
+/**
+ * TESTS
+ * Run mocha tests
+ */
+gulp.task('test', function () {
+    var reportsDir = 'reports';
+    if (!fs.existsSync(reportsDir)) { shell.mkdir('-p', reportsDir); }
+
+    return gulp.src('src/**/*.test.js', { read: false })
+        .pipe(mocha({
+            reporter: 'mocha-junit-reporter',
+            reporterOptions: { mochaFile: 'reports/unit-tests-junit.xml' }
+        }));
+});
+
+gulp.task('tdd', function () {
+    gulp.watch(['src/**/*.js'], batch(function (events, cb) {
+        return gulp.src(['src/**/*.spec.js'])
+            .pipe(mocha({ reporter: 'list' }))
+            .on('error', function (err) {
+                console.log(err.stack);
+            });
+    }));
+});
+
 
 /**
  * CSS Lint
- * ---------------------------------------------
  */
 gulp.task('csslint', function () {
     var ignoreVendorStyles = filter(['**/*.css', '!**/bootstrap.css'], { restore: true });
