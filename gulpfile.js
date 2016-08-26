@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 var gulp = require('gulp');
 var postcss = require('gulp-postcss');
 var sourcemaps = require('gulp-sourcemaps');
@@ -40,20 +41,20 @@ gulp.task('webpack-dev-server', function() {
     config.devtool = 'eval';
     config.debug = true;
 
-    _.forEach(config.entry, function(entry, key) {
+    _.forEach(config.entry, function (entry, key) {
         config.entry[key].unshift('webpack/hot/only-dev-server');
         config.entry[key].unshift('webpack-dev-server/client?http://localhost:' + port + '/');
     });
 
     // Start a webpack-dev-server
     new webpackDevServer(webpack(config), {
-        contentBase: __dirname + '/src/',
+        contentBase: path.join(__dirname, '/src/'),
         publicPath: config.output.publicPath,
         stats: {
             colors: true
         }
-    }).listen(port, 'localhost', function(err) {
-        if(err) throw new gulpUtil.PluginError('webpack-dev-server', err);
+    }).listen(port, 'localhost', function (err) {
+        if (err) { throw new gulpUtil.PluginError('webpack-dev-server', err); }
         gulpUtil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
     });
 
@@ -77,7 +78,7 @@ gulp.task('test', function () {
 });
 
 gulp.task('tdd', function () {
-    gulp.watch(['src/**/*.js'], batch(function (events, cb) {
+    gulp.watch(['src/**/*.js'], batch(function () {
         return gulp.src(['src/**/*.spec.js'])
             .pipe(mocha({ reporter: 'list' }))
             .on('error', function (err) {
@@ -134,7 +135,7 @@ gulp.task('eslint', function () {
 
     return gulp.src(['./src/**/*.js'])
         .pipe(eslint())
-        .pipe(eslint.format('checkstyle', fs.createWriteStream(__dirname + '/reports/eslint-checkstyle.xml')))
+        .pipe(eslint.format('checkstyle', fs.createWriteStream(path.join(__dirname, '/reports/eslint-checkstyle.xml'))))
         .pipe(eslint.failAfterError());
 });
 

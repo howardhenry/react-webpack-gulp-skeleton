@@ -359,7 +359,10 @@
     // require a space after function names (off by default)
     "space-after-function-name": 0,
     // require a space after certain keywords (off by default)
-    "keyword-spacing": 2,
+    "keyword-spacing": [
+      "error",
+      { "before": true, "after": true }
+    ],
     // enforce spacing before and after semicolons
     "semi-spacing": [
       "error",
