@@ -5,6 +5,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var eslint = require('gulp-eslint');
 var csslint = require('gulp-csslint');
+var filter = require('gulp-filter');
 var gulpUtil = require('gulp-util');
 var gulpCopy = require('gulp-copy');
 var autoprefixer = require('autoprefixer');
@@ -58,6 +59,44 @@ gulp.task('webpack-dev-server', function() {
 });
 
 
+
+/**
+ * CSS Lint
+ * ---------------------------------------------
+ */
+gulp.task('csslint', function () {
+    var ignoreVendorStyles = filter(['**/*.css', '!**/bootstrap.css'], { restore: true });
+    var output = '';
+
+    return gulp.src('src/**/*.scss')
+        .pipe(sass.sync().on('error', sass.logError))
+        .pipe(postcss([autoprefixer({ browsers: ['last 4 versions'] })]))
+        .pipe(ignoreVendorStyles)
+        .pipe(csslint())
+        .pipe(csslint.reporter('junit-xml', {
+            logger: function (str) {
+                var reportsDir = 'reports';
+                if (!fs.existsSync(reportsDir)) { shell.mkdir('-p', reportsDir); }
+
+                output += str;
+                fs.writeFile(reportsDir + '/csslint-junit.xml', output);
+            }
+        }));
+});
+
+gulp.task('csslint-cli', function () {
+    var ignoreVendorStyles = filter(['**/*.css', '!**/bootstrap.css'], { restore: true });
+
+    return gulp.src('src/**/*.scss')
+        .pipe(sass.sync().on('error', sass.logError))
+        .pipe(postcss([autoprefixer({ browsers: ['last 4 versions'] })]))
+        .pipe(ignoreVendorStyles)
+        .pipe(csslint())
+        .pipe(csslint.reporter())
+        .pipe(csslint.failReporter());
+});
+
+
 /**
  * ESLINT
  */
@@ -79,6 +118,7 @@ gulp.task('eslint-cli', function () {
         .pipe(eslint.format('compact'))
         .pipe(eslint.failAfterError());
 });
+
 
 /**
  * ADD-GIT-HOOKS
