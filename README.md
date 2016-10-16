@@ -1,6 +1,7 @@
 # Webpack + Gulp Skeleton
 
 Skeleton project using Webpack Dev Server and Gulp
+NOTE: Application requires Node.js v6.0 or higher
 
 ## Gulp
 
