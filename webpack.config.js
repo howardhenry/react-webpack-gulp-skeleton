@@ -5,7 +5,7 @@ module.exports = {
     watch: true,
     cache: true,
     entry: {
-        app: ['./src/start.js']
+        app: ['./src/index.js']
     },
     output: {
         path: path.join(__dirname, 'dist'),
