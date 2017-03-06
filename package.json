@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "gulp webpack-dev-server",
-    "code-quality": "gulp eslint",
-    "code-quality-cli": "gulp eslint-cli",
-    "css-quality": "gulp csslint",
-    "css-quality-cli": "gulp csslint-cli",
+    "eslint": "gulp eslint",
+    "eslint-cli": "gulp eslint-cli",
+    "csslint": "gulp csslint",
+    "csslint-cli": "gulp csslint-cli",
     "add-git-hooks": "gulp add-git-hooks",
     "test": "gulp test",
     "tdd": "gulp tdd"

@@ -15,8 +15,8 @@ Essential scripts via NPM:
     - *junit reporter*: `npm run css-quality`
     - *command line interface*: `npm run css-quality-cli`
 * Run code quality (eslint):
-    - *checkstyle reporter*:  `npm run code-quality`
-    - *command line interface*:  `npm run code-quality-cli`
+    - *checkstyle reporter*:  `npm run eslint`
+    - *command line interface*:  `npm run eslint-cli`
 * Start app at **http://localhost:8050**: `npm start`
 
 
@@ -31,8 +31,8 @@ NOTE: In exceptional cases, you have the option to skip the hooks by simply addi
 #### Pre-commit
 Before each commit, only code quality (eslint), and css quality (csslint) checks will be made. The following commands will be automatically run:
 
-    -   npm run code-quality-cli &&
-    -   npm run css-quality-cli
+    -   npm run eslint-cli &&
+    -   npm run csslint-cli
 
 #### Pre-push
 Before each push, only tests will be run. The following command will be automatically run:
