@@ -1,0 +1,23 @@
+language: node_js
+
+node_js:
+  - "6"
+
+install:
+  - npm install
+
+before_script:
+  # Set NODE_ENV to production after all dev dependencies are installed
+  - export NODE_ENV=production
+
+script:
+  - npm run eslint-cli
+  - npm run csslint-cli
+  - npm run test
+
+notifications:
+  email:
+    recipients:
+      - web@serverwind.net
+    on_success: change
+    on_failure: change
