@@ -13,7 +13,7 @@
     "test": "gulp test",
     "tdd": "gulp tdd",
     "precommit": "npm run eslint-cli",
-    "prepush": "npm run test-cli"
+    "prepush": "npm run test"
   },
   "author": "",
   "license": "ISC",
