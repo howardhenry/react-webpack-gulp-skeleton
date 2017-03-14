@@ -11,7 +11,9 @@
     "csslint-cli": "gulp csslint-cli",
     "add-git-hooks": "gulp add-git-hooks",
     "test": "gulp test",
-    "tdd": "gulp tdd"
+    "tdd": "gulp tdd",
+    "precommit": "npm run eslint-cli",
+    "prepush": "npm run test-cli"
   },
   "author": "",
   "license": "ISC",
@@ -49,6 +51,7 @@
     "gulp-postcss": "6.1.1",
     "gulp-sass": "2.3.2",
     "gulp-util": "3.0.7",
+    "husky": "0.13.2",
     "mocha": "3.0.2",
     "mocha-junit-reporter": "1.12.0",
     "webpack": "1.13.1",

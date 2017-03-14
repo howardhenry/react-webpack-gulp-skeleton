@@ -9,7 +9,6 @@ const filter = require('gulp-filter');
 const mocha = require('gulp-mocha');
 const batch = require('gulp-batch');
 const gulpUtil = require('gulp-util');
-const gulpCopy = require('gulp-copy');
 const autoprefixer = require('autoprefixer');
 const shell = require('shelljs');
 const webpack = require('webpack');
@@ -139,12 +138,4 @@ gulp.task('eslint-cli', () => {
         .pipe(eslint())
         .pipe(eslint.format('compact'))
         .pipe(eslint.failAfterError());
-});
-
-/**
- * ADD-GIT-HOOKS
- */
-gulp.task('add-git-hooks', () => {
-    return gulp.src('./hooks/*')
-        .pipe(gulpCopy('./.git/'));
 });

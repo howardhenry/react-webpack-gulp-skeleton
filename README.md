@@ -1,8 +1,8 @@
-# Webpack + Gulp Skeleton
+# React + Webpack + Gulp Skeleton
 
 Skeleton project using Webpack Dev Server and Gulp.
 
-NOTE: Application requires Node.js v6.0 or higher
+NOTE: Application requires Node.js v6.x and NPM 3.x or higher
 
 ## Gulp
 
@@ -17,7 +17,7 @@ Essential scripts via NPM:
 * Run code quality (eslint):
     - *checkstyle reporter*:  `npm run eslint`
     - *command line interface*:  `npm run eslint-cli`
-* Start app at **http://localhost:8050**: `npm start`
+* Start app at **http://localhost:8080**: `npm start`
 
 
 ## Git hooks
@@ -30,11 +30,12 @@ NOTE: In exceptional cases, you have the option to skip the hooks by simply addi
 
 #### Pre-commit
 Before each commit, only code quality (eslint), and css quality (csslint) checks will be made. The following commands will be automatically run:
-
-    -   npm run eslint-cli &&
-    -   npm run csslint-cli
+```
+    $ npm run eslint-cli && npm run csslint-cli
+```
 
 #### Pre-push
 Before each push, only tests will be run. The following command will be automatically run:
-
-    -   npm run test
+```
+    $ npm run test
+```

@@ -1,3 +1,0 @@
-#! /bin/sh
-
-npm run eslint-cli & npm run csslint-cli
