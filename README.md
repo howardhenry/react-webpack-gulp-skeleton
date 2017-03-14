@@ -1,4 +1,4 @@
-# React + Webpack + Gulp Skeleton
+# React + Webpack + Gulp Skeleton &middot; [![Build Status](https://travis-ci.org/howardhenry/react-webpack-gulp-skeleton.svg?branch=master)](https://travis-ci.org/howardhenry/react-webpack-gulp-skeleton)
 
 Skeleton project using Webpack Dev Server and Gulp.
 
