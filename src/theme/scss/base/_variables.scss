@@ -3,32 +3,32 @@
  *********************/
 
 // Paths
-$sca-font-path:                         "../fonts/";
-$sca-img-path:                          "../img/";
+$your-font-path:                         "../fonts/";
+$your-img-path:                          "../img/";
 
 // Colors
-$sca-light:                             #F1EEE7;
-$sca-white:                             #FFFFFF;
-$sca-black:                             #000000;
-$sca-gray-darker:                       #222222;
-$sca-gray-dark:                         #333333;
-$sca-gray:                              #555555;
-$sca-gray-light:                        #7a7a8f;
-$sca-gray-lighter:                      #EEEEEE;
-$sca-gray-lightest:                     #F8F8F8;
+$your-light:                             #F1EEE7;
+$your-white:                             #FFFFFF;
+$your-black:                             #000000;
+$your-gray-darker:                       #222222;
+$your-gray-dark:                         #333333;
+$your-gray:                              #555555;
+$your-gray-light:                        #7a7a8f;
+$your-gray-lighter:                      #EEEEEE;
+$your-gray-lightest:                     #F8F8F8;
 
-$sca-brand-dark:                        #1F242C;
-$sca-brand-light:                       #FFFFFF;
-$sca-brand-primary:                     #00C5B7;
-$sca-brand-danger:                      #FB436B;
+$your-brand-dark:                        #1F242C;
+$your-brand-light:                       #FFFFFF;
+$your-brand-primary:                     #00C5B7;
+$your-brand-danger:                      #FB436B;
 
 // Layout
-$sca-padding-xlarge-vertical:           12px;
-$sca-padding-xlarge-horizontal:         24px;
-$sca-padding-xxlarge-vertical:          40px;
-$sca-padding-xxlarge-horizontal:        40px;
+$your-padding-xlarge-vertical:           12px;
+$your-padding-xlarge-horizontal:         24px;
+$your-padding-xxlarge-vertical:          40px;
+$your-padding-xxlarge-horizontal:        40px;
 
-$sca-nav-menu-height:                   58px;
+$your-nav-menu-height:                   58px;
 
 
 /*********************
@@ -50,11 +50,11 @@ $font-size-h6:                          ceil(($font-size-base * 0.875)) !default
 
 $line-height-base:                      1.75;
 
-$headings-font-family:                  "ff-enzo-web", "Roboto", Arial, Helvetica, san-serif;
+$headings-font-family:                  "Roboto", Arial, Helvetica, san-serif;
 
 // Colors
-$brand-primary:                        $sca-brand-primary;
-$brand-danger:                         $sca-brand-danger;
+$brand-primary:                        $your-brand-primary;
+$brand-danger:                         $your-brand-danger;
 
 
 // Popovers
@@ -63,7 +63,7 @@ $popover-max-width:                   400px !default;
 $popover-border-color:                rgba(0,0,0,.2) !default;
 $popover-fallback-border-color:       #ccc !default;
 
-$popover-title-bg:                    $sca-brand-primary !default;
+$popover-title-bg:                    $your-brand-primary !default;
 
 $popover-arrow-width:                 10px !default;
 $popover-arrow-color:                 $popover-bg !default;
@@ -80,9 +80,9 @@ $table-condensed-cell-padding:  5px !default;
 //** Default background color used for all tables.
 $table-bg:                      transparent !default;
 //** Background color used for `.table-striped`.
-$table-bg-accent:               darken($sca-white, 10%) !default;
+$table-bg-accent:               darken($your-white, 10%) !default;
 //** Background color used for `.table-hover`.
-$table-bg-hover:                $sca-gray-dark !default;
+$table-bg-hover:                $your-gray-dark !default;
 $table-bg-active:               $table-bg-hover !default;
 
 //** Border color for table and cell borders.

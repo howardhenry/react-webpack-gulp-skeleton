@@ -1,58 +1,56 @@
-var fs = require('fs');
-var path = require('path');
-var gulp = require('gulp');
-var postcss = require('gulp-postcss');
-var sass = require('gulp-sass');
-var eslint = require('gulp-eslint');
-var csslint = require('gulp-csslint');
-var filter = require('gulp-filter');
-var mocha = require('gulp-mocha');
-var batch = require('gulp-batch');
-var gulpUtil = require('gulp-util');
-var gulpCopy = require('gulp-copy');
-var autoprefixer = require('autoprefixer');
-var shell = require('shelljs');
-var webpack = require('webpack');
-var _ = require('lodash');
-var webpackDevServer = require('webpack-dev-server');
-var webpackConfig = require('./webpack.config.js');
+const fs = require('fs');
+const path = require('path');
+const gulp = require('gulp');
+const postcss = require('gulp-postcss');
+const sass = require('gulp-sass');
+const eslint = require('gulp-eslint');
+const csslint = require('gulp-csslint');
+const filter = require('gulp-filter');
+const mocha = require('gulp-mocha');
+const batch = require('gulp-batch');
+const gulpUtil = require('gulp-util');
+const gulpCopy = require('gulp-copy');
+const autoprefixer = require('autoprefixer');
+const shell = require('shelljs');
+const webpack = require('webpack');
+const _ = require('lodash');
+const WebpackDevServer = require('webpack-dev-server');
+const webpackConfig = require('./webpack.config.js');
 
 /**
  * SASS-DEV
  * compile sass in 'src' directory and save in place to .css
  */
-gulp.task('sass-dev', function () {
+gulp.task('sass-dev', () => {
     return gulp.src(['./src/**/*.scss'])
         .pipe(sass.sync({ outputStyle: 'compressed' }).on('error', sass.logError))
         .pipe(postcss([autoprefixer({ browsers: ['last 4 versions'] })]))
         .pipe(gulp.dest('./src/theme/css'));
 });
 
-
 /**
  * WEBPACK-DEV
- * Bundle and serve app with webpack or port 8050
+ * Bundle and serve app with webpack or port 8080
  */
-gulp.task('webpack-dev-server', function() {
-
-    var port = 8050;
-    var config = Object.create(webpackConfig);
+gulp.task('webpack-dev-server', () => {
+    const port = 8080;
+    const config = Object.create(webpackConfig);
     config.devtool = 'eval';
     config.debug = true;
 
-    _.forEach(config.entry, function (entry, key) {
+    _.forEach(config.entry, (entry, key) => {
         config.entry[key].unshift('webpack/hot/only-dev-server');
-        config.entry[key].unshift('webpack-dev-server/client?http://localhost:' + port + '/');
+        config.entry[key].unshift(`webpack-dev-server/client?http://localhost:${port}/`);
     });
 
     // Start a webpack-dev-server
-    new webpackDevServer(webpack(config), {
+    new WebpackDevServer(webpack(config), {
         contentBase: path.join(__dirname, '/src/'),
         publicPath: config.output.publicPath,
         stats: {
             colors: true
         }
-    }).listen(port, 'localhost', function (err) {
+    }).listen(port, 'localhost', (err) => {
         if (err) { throw new gulpUtil.PluginError('webpack-dev-server', err); }
         gulpUtil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
     });
@@ -60,13 +58,12 @@ gulp.task('webpack-dev-server', function() {
     gulp.watch(['./src/**/*.scss'], ['sass-css']);
 });
 
-
 /**
  * TESTS
  * Run mocha tests
  */
-gulp.task('test', function () {
-    var reportsDir = 'reports';
+gulp.task('test', () => {
+    const reportsDir = 'reports';
     if (!fs.existsSync(reportsDir)) { shell.mkdir('-p', reportsDir); }
 
     return gulp.src('src/**/*.test.js', { read: false })
@@ -76,23 +73,22 @@ gulp.task('test', function () {
         }));
 });
 
-gulp.task('tdd', function () {
-    gulp.watch(['src/**/*.js'], batch(function () {
+gulp.task('tdd', () => {
+    gulp.watch(['src/**/*.js'], batch(() => {
         return gulp.src(['src/**/*.spec.js'])
             .pipe(mocha({ reporter: 'list' }))
-            .on('error', function (err) {
-                console.log(err.stack);
+            .on('error', (err) => {
+                console.log(err.stack); // eslint-disable-line no-console
             });
     }));
 });
 
-
 /**
  * CSS Lint
  */
-gulp.task('csslint', function () {
-    var ignoreVendorStyles = filter(['**/*.css', '!**/bootstrap.css'], { restore: true });
-    var output = '';
+gulp.task('csslint', () => {
+    const ignoreVendorStyles = filter(['**/*.css', '!**/bootstrap.css'], { restore: true });
+    let output = '';
 
     return gulp.src('src/**/*.scss')
         .pipe(sass.sync().on('error', sass.logError))
@@ -100,18 +96,18 @@ gulp.task('csslint', function () {
         .pipe(ignoreVendorStyles)
         .pipe(csslint())
         .pipe(csslint.reporter('junit-xml', {
-            logger: function (str) {
-                var reportsDir = 'reports';
+            logger: (str) => {
+                const reportsDir = 'reports';
                 if (!fs.existsSync(reportsDir)) { shell.mkdir('-p', reportsDir); }
 
                 output += str;
-                fs.writeFile(reportsDir + '/csslint-junit.xml', output);
+                fs.writeFile(`${reportsDir}/csslint-junit.xml`, output);
             }
         }));
 });
 
-gulp.task('csslint-cli', function () {
-    var ignoreVendorStyles = filter(['**/*.css', '!**/bootstrap.css'], { restore: true });
+gulp.task('csslint-cli', () => {
+    const ignoreVendorStyles = filter(['**/*.css', '!**/bootstrap.css'], { restore: true });
 
     return gulp.src('src/**/*.scss')
         .pipe(sass.sync().on('error', sass.logError))
@@ -126,30 +122,29 @@ gulp.task('csslint-cli', function () {
 /**
  * ESLINT
  */
-gulp.task('eslint', function () {
-    var reportsDir = 'reports';
+gulp.task('eslint', () => {
+    const reportsDir = 'reports';
     if (!fs.existsSync(reportsDir)) {
         shell.mkdir('-p', reportsDir);
     }
 
-    return gulp.src(['./src/**/*.js'])
+    return gulp.src(['./src/**/*.js', './src/**/*.jsx'])
         .pipe(eslint())
         .pipe(eslint.format('checkstyle', fs.createWriteStream(path.join(__dirname, '/reports/eslint-checkstyle.xml'))))
         .pipe(eslint.failAfterError());
 });
 
-gulp.task('eslint-cli', function () {
-    return gulp.src(['./src/**/*.js'])
+gulp.task('eslint-cli', () => {
+    return gulp.src(['./gulpfile.js', './src/**/*.js', './src/**/*.jsx'])
         .pipe(eslint())
         .pipe(eslint.format('compact'))
         .pipe(eslint.failAfterError());
 });
 
-
 /**
  * ADD-GIT-HOOKS
  */
-gulp.task('add-git-hooks', function () {
+gulp.task('add-git-hooks', () => {
     return gulp.src('./hooks/*')
         .pipe(gulpCopy('./.git/'));
 });
